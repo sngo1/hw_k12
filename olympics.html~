@@ -1,4 +1,11 @@
 <!DOCTYPE hmtl>
+<!-- 
+Team Gnocchi
+Alessandro Cartegni & Samantha Ngo
+Softdev -- pd7
+k#12
+2018-03-19
+-->
 <html>
 
   <head>
@@ -21,5 +28,5 @@
     </center>
   </body>
 
-  <script src="svg.js"></script>
+  <script src="olympics.js"></script>
 </html>
