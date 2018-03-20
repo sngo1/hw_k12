@@ -6,32 +6,42 @@ K12 -- Medallions ...of Data!
 2018-03-19
 */
 
-var container = d3.select("svg");
+/*var container = d3.select("svg")[0];
 console.log("CONTAINER: ", container);
-
-/* HOW TO DRAW A CIRCLE:
-container.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 25).style("fill", "orange");
-* DOESN'T SEEM TO ADD THE CIRCLE TO THE ARRAY
-* Returns a format similar to that returned by container
-*/
-
+container.enter().append("circle");
 console.log("CONTAINER: ", container);
 var switchButton = d3.select("button");
 console.log("SWITCH: ", switchButton);
+*/
+
+var container = document.getElementById("vimage");
+var switchButton = document.getElementById("switch");
 
 var drawDot = function(x, y, r, f){
-    console.log("Drawing dot...");
-    container.append("circle").attr("cx", x).attr("cy", y).attr("r", r).style("fill", f);
-    console.log("...dot drawn.");
-    return true;
+    var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    dot.setAttribute("cx", x);
+    dot.setAttribute("cy", y);
+    dot.setAttribute("fill", f); 
+    dot.setAttribute("r", r);
+    container.appendChild(dot);
+
+    console.log("---- Dot: ", dot);
+    return dot;
 }
 
 var drawRect = function(x, y, h, w, f){
-    console.log("Drawing rectangle...");
-    container.append("rect").attr("x", x).attr("y", y).attr("height", h).attr("width", w).style("fill", f);
-    console.log("...rectangle drawn.");
-    return true;
+    var rect =  document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", x);
+    rect.setAttribute("y", y);
+    rect.setAttribute("height", h);
+    rect.setAttribute("width", w);
+    rect.setAttribute("fill", f);
+    
+    container.appendChild(rect);
+
+    return rect;
 }
+    
 
 //Remove all the inner nodes of the SVG area
 var clear = function(e){
@@ -44,6 +54,10 @@ var clear = function(e){
     console.log("Board cleared.");
     first = true;
 }
+
+//var iBronzeRadius = -1;
+//var iSilverRadius = -1;
+//var iGoldRadius = -1;
 
 // Displays the three circles based on radius for Italy
 var displayItaly = function(){
@@ -60,6 +74,10 @@ var displayItaly = function(){
     console.log("Stats changed.");
     return true;
 }
+
+//var fBronzeRadius = -1;
+//var fSilverRadius = -1;
+//var fGoldRadius = -1;
 
 // Displays the three circles based on radius for France
 var displayFrance = function(){
@@ -94,5 +112,4 @@ var changeCountry = function(){
     }
 }
 
-displayFrance()
-switchButton.on("click", changeCountry);
+switchButton.addEventListener("click", changeCountry);
