@@ -6,19 +6,22 @@ K12 -- Medallions ...of Data!
 2018-03-19
 */
 
+// Selections - elements that will be changed
 var container = d3.select("svg");
 console.log("CONTAINER: ", container);
+var title = d3.select("h4").text("Country: France");
+console.log("TITLE: ", title);
+console.log("CONTAINER: ", container);
+var switchButton = d3.select("button");
+console.log("SWITCH: ", switchButton);
 
-/* HOW TO DRAW A CIRCLE:
+/* NOTES on HOW TO DRAW A CIRCLE:
 container.append("circle").attr("cx", 25).attr("cy", 25).attr("r", 25).style("fill", "orange");
 * DOESN'T SEEM TO ADD THE CIRCLE TO THE ARRAY
 * Returns a format similar to that returned by container
 */
 
-console.log("CONTAINER: ", container);
-var switchButton = d3.select("button");
-console.log("SWITCH: ", switchButton);
-
+// Draws a circle given the coordinates, radius, and fill color
 var drawDot = function(x, y, r, f){
     console.log("Drawing dot...");
     container.append("circle").attr("cx", x).attr("cy", y).attr("r", r).style("fill", f);
@@ -26,6 +29,7 @@ var drawDot = function(x, y, r, f){
     return true;
 }
 
+// Draws a rectangle given the coordinates, dimensions, and fill color
 var drawRect = function(x, y, h, w, f){
     console.log("Drawing rectangle...");
     container.append("rect").attr("x", x).attr("y", y).attr("height", h).attr("width", w).style("fill", f);
@@ -33,29 +37,25 @@ var drawRect = function(x, y, h, w, f){
     return true;
 }
 
-//Remove all the inner nodes of the SVG area
+// Draws a white rectangle over the svg area
 var clear = function(e){
     console.log("Clearing...");
-    var firstChild = container.firstChild;
-    while(firstChild){
-	container.removeChild(firstChild);
-	firstChild = container.firstChild;
-    }
+    drawRect(0,0,500,500,"white");
     console.log("Board cleared.");
     first = true;
 }
 
-// Displays the three circles based on radius for Italy
+// Displays the three circles based on radius for Italy and changes the title
 var displayItaly = function(){
     console.log("Changing display to Italy's Stats...");
 
+    title.text("Country: Italy");
     drawRect(0, 0, 500, 167, "green");
     drawRect(333, 0, 500, 167, "red");
 
     drawDot(125, 250, 20, "gray");
     drawDot(250, 250, 30, "yellow");
     drawDot(375, 250, 50, "orange");
-    
 
     console.log("Stats changed.");
     return true;
@@ -65,6 +65,7 @@ var displayItaly = function(){
 var displayFrance = function(){
     console.log("Changing display to France's Stats...");
 
+    title.text("Country: France");
     drawRect(0, 0, 500, 167, "blue");
     drawRect(333, 0, 500, 167, "red");
 
@@ -76,8 +77,10 @@ var displayFrance = function(){
     return true;
 }
 
+// next-state variable
 var nextCountry = "Italy";
 
+// When button clicked, change the country stats that are displayed
 var changeCountry = function(){
     if (nextCountry == "Italy"){
 	clear();
@@ -94,5 +97,6 @@ var changeCountry = function(){
     }
 }
 
-displayFrance()
-switchButton.on("click", changeCountry);
+displayFrance() // initial display
+console.log("END CONTAINER: ", container);
+switchButton.on("click", changeCountry); // Event Listener equivalent
